@@ -20,17 +20,42 @@ type Author struct {
 	Lastname  string `json:"lastname"`
 }
 
+// get all books
+func getBooks(w http.ResponseWriter, r *http.Request) {
+
+}
+
+// get detail book
+func getBook(w http.ResponseWriter, r *http.Request) {
+
+}
+
+// insert a new book
+func createBook(w http.ResponseWriter, r *http.Request) {
+
+}
+
+// update book
+func updateBook(w http.ResponseWriter, r *http.Request) {
+
+}
+
+// delete book
+func deleteBook(w http.ResponseWriter, r *http.Request) {
+
+}
+
 func main() {
 	// init route
 	//r := mux.NewRouter()
 	var r *mux.Router = mux.NewRouter()
 
 	// route hanlders / endpoints
-	//r.HandleFunc("/api/books", getBooks).Methods("GET")
-	//r.HandleFunc("/api/book/{id}", getBook).Methods("GET")
-	//r.HandleFunc("/api/book", createBook).Methods("POST")
-	//r.HandleFunc("/api/book/{id}", updateBook).Methods("PUT")
-	//r.HandleFunc("/api/book/{id}", deleteBook).Methods("DELETE")
+	r.HandleFunc("/api/books", getBooks).Methods("GET")
+	r.HandleFunc("/api/book/{id}", getBook).Methods("GET")
+	r.HandleFunc("/api/book", createBook).Methods("POST")
+	r.HandleFunc("/api/book/{id}", updateBook).Methods("PUT")
+	r.HandleFunc("/api/book/{id}", deleteBook).Methods("DELETE")
 
 	// start server
 	log.Fatal(http.ListenAndServe(":9000", r))
