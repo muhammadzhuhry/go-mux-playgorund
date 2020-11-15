@@ -25,7 +25,7 @@ func CreatePerson(response http.ResponseWriter, request *http.Request) {
 	var person Person
 	json.NewDecoder(request.Body).Decode(&person)
 
-	collection := client.Database("godbtest").Collection("people")
+	collection := client.Database("go-mongo").Collection("people")
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	result, _ := collection.InsertOne(ctx, person)
 
