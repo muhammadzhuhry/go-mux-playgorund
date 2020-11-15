@@ -1,8 +1,12 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+	"time"
 )
 
 type Person struct {
@@ -11,6 +15,11 @@ type Person struct {
 	Lastname  string             `json:"lastname,omitempty" bson:"lasttname,omitempty"`
 }
 
+var client *mongo.Client
+
 func main() {
 	fmt.Println("Starting the application...")
+
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	client, _ = mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017"))
 }
