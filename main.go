@@ -1,9 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+)
+
+type Person struct {
+	ID        primitive.ObjectID `json:"_id,omitempty" bson:"_id,omitempty"`
+	Firstname string             `json:"firstname,omitempty" bson:"firstname,omitempty"`
+	Lastname  string             `json:"lastname,omitempty" bson:"lasttname,omitempty"`
+}
 
 func main() {
-	fmt.Println("existing branch list:")
-	fmt.Println("go-mux-basic -> reference by traversy media tutorial")
-	fmt.Println("go-mux-mongodb -> reference by the polyglot dev tutorial")
+	fmt.Println("Starting the application...")
 }
