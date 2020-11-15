@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -30,6 +31,35 @@ func CreatePerson(response http.ResponseWriter, request *http.Request) {
 	result, _ := collection.InsertOne(ctx, person)
 
 	json.NewEncoder(response).Encode(result)
+}
+
+func GetPeople(response http.ResponseWriter, request *http.Request) {
+	response.Header().Add("content-type", "application/json")
+	var people []Person
+
+	collection := client.Database("go-mongo").Collection("people")
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	cursor, err := collection.Find(ctx, bson.M{})
+	if err != nil {
+		response.WriteHeader(http.StatusInternalServerError)
+		response.Write([]byte(`{ "message": "` + err.Error() + `" }`))
+		return
+	}
+	defer cursor.Close(ctx)
+
+	for cursor.Next(ctx) {
+		var person Person
+		cursor.Decode(&person)
+		people = append(people, person)
+	}
+
+	if err := cursor.Err(); err != nil {
+		response.WriteHeader(http.StatusInternalServerError)
+		response.Write([]byte(`{ "message": "` + err.Error() + `" }`))
+		return
+	}
+
+	json.NewEncoder(response).Encode(people)
 }
 
 func main() {
