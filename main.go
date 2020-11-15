@@ -136,6 +136,7 @@ func main() {
 	router.HandleFunc("/people", GetPeople).Methods("GET")
 	router.HandleFunc("/person/{id}", GetPerson).Methods("GET")
 	router.HandleFunc("/person/{id}", DeletePerson).Methods("DELETE")
+	router.HandleFunc("/person/{id}", UpdatePerson).Methods("PUT")
 
 	http.ListenAndServe(":9000", router)
 }
