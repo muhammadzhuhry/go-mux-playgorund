@@ -72,6 +72,7 @@ func main() {
 
 	// route goes here
 	router.HandleFunc("/person", CreatePerson).Methods("POST")
+	router.HandleFunc("/people", CreatePerson).Methods("GET")
 
 	http.ListenAndServe(":9000", router)
 }
