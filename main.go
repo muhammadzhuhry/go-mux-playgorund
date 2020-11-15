@@ -39,5 +39,9 @@ func main() {
 	client, _ = mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017"))
 
 	router := mux.NewRouter()
+
+	// route goes here
+	router.HandleFunc("/person", CreatePerson).Methods("POST")
+
 	http.ListenAndServe(":9000", router)
 }
