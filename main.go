@@ -90,6 +90,7 @@ func main() {
 	// route goes here
 	router.HandleFunc("/person", CreatePerson).Methods("POST")
 	router.HandleFunc("/people", GetPeople).Methods("GET")
+	router.HandleFunc("/person/{id}", GetPerson).Methods("GET")
 
 	http.ListenAndServe(":9000", router)
 }
